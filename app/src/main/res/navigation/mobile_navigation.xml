@@ -3,23 +3,38 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_incomplete">
+
+    <fragment
+        android:id="@+id/navigation_incomplete"
+        android:name="com.tngdev.todoapp.ui.home.AllTaskFragment"
+        android:label="@string/title_incomplete_task"
+        tools:layout="@layout/fragment_all_task">
+        <argument
+            android:name="type"
+            android:defaultValue="1"
+            app:argType="integer"/>
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.tngdev.todoapp.ui.home.AllTaskFragment"
         android:label="@string/title_all_task"
-        tools:layout="@layout/fragment_home" />
-
-    <fragment
-        android:id="@+id/navigation_incomplete"
-        android:name="com.tngdev.todoapp.ui.incomplete.IncompleteFragment"
-        android:label="@string/title_incomplete_task"
-        tools:layout="@layout/fragment_incomplete" />
+        tools:layout="@layout/fragment_all_task" >
+        <argument
+            android:name="type"
+            android:defaultValue="0"
+            app:argType="integer"/>
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_complete"
-        android:name="com.tngdev.todoapp.ui.completes.CompleteFragment"
+        android:name="com.tngdev.todoapp.ui.home.AllTaskFragment"
         android:label="@string/title_complete_task"
-        tools:layout="@layout/fragment_complete" />
+        tools:layout="@layout/fragment_all_task" >
+        <argument
+            android:name="type"
+            android:defaultValue="2"
+            app:argType="integer"/>
+    </fragment>
 </navigation>

@@ -3,4 +3,6 @@
     <string name="title_all_task">All</string>
     <string name="title_incomplete_task">Incomplete</string>
     <string name="title_complete_task">Complete</string>
+    <string name="add_task_hint_message">What do you need to do?</string>
+    <string name="dialog_new_task_title">New task</string>
 </resources>

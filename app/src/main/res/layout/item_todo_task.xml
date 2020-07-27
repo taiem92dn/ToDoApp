@@ -16,6 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxLines="3"
-        android:text="This is description\nThis is desc\nI love lego"/>
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:text="This is description\nThis is desc\ntest test"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

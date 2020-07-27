@@ -12,6 +12,7 @@ class TodoTaskAdapter : RecyclerView.Adapter<TodoTaskAdapter.TodoTaskVH>() {
     class TodoTaskVH(val binding : ItemTodoTaskBinding) : RecyclerView.ViewHolder(binding.root)
 
     var data : List<TodoTask>? = null
+    var onTaskCompleteChangeListener: OnTaskCompleteChangeListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoTaskVH {
         val binding = ItemTodoTaskBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -29,9 +30,12 @@ class TodoTaskAdapter : RecyclerView.Adapter<TodoTaskAdapter.TodoTaskVH>() {
         holder.binding.tvDescTask.text = item.description
 
         holder.binding.cbCompleteTask.setOnCheckedChangeListener { compoundButton: CompoundButton, b: Boolean ->
-
+            onTaskCompleteChangeListener?.onChange(b, position)
         }
     }
 
+    interface OnTaskCompleteChangeListener {
+        fun onChange(isComplete: Boolean, position: Int)
+    }
 
 }

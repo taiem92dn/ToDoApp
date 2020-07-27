@@ -10,6 +10,9 @@ interface TodoTaskDao {
     @Query("SELECT * FROM todotask")
     fun getAll(): LiveData<List<TodoTask>>
 
+    @Query("SELECT * FROM todotask WHERE isComplete = :isComplete")
+    fun getTasks(isComplete: Boolean): LiveData<List<TodoTask>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(todoTask: TodoTask)
 
