@@ -1,36 +1,30 @@
-package com.tngdev.todoapp.ui.home
+package com.tngdev.todoapp.ui.tasks
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.tngdev.todoapp.model.TodoTask
-import com.tngdev.todoapp.repository.TodoTaskRepository
+import com.tngdev.todoapp.repository.TasksRepository
 
-class AllTaskViewModel @ViewModelInject constructor(
-    private val repository: TodoTaskRepository
+class TasksViewModel @ViewModelInject constructor(
+    private val repository: TasksRepository
 ): ViewModel() {
 
     lateinit var taskList: LiveData<List<TodoTask>>
 
     fun getAllTasks(): LiveData<List<TodoTask>> {
-        if (!::taskList.isInitialized) {
-            taskList = repository.getAll()
-        }
+        taskList = repository.getAll()
 
         return taskList
     }
     fun getCompleteTasks(): LiveData<List<TodoTask>> {
-        if (!::taskList.isInitialized) {
-            taskList = repository.getTasks(true)
-        }
+        taskList = repository.getTasks(true)
 
         return taskList
     }
     fun getInCompleteTasks(): LiveData<List<TodoTask>> {
-        if (!::taskList.isInitialized) {
-            taskList = repository.getTasks(false)
-        }
+
+        taskList = repository.getTasks(false)
 
         return taskList
     }

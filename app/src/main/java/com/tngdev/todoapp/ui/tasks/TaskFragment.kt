@@ -1,21 +1,18 @@
-package com.tngdev.todoapp.ui.home
+package com.tngdev.todoapp.ui.tasks
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
 import com.tngdev.todoapp.R
 import com.tngdev.todoapp.databinding.FragmentAllTaskBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_all_task.*
 
 @AndroidEntryPoint
-class AllTaskFragment : Fragment() {
+class TaskFragment : Fragment() {
 
     enum class Type {
         ALL, INCOMPLETE, COMPLETE
@@ -23,8 +20,8 @@ class AllTaskFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(type: Type=Type.ALL): AllTaskFragment {
-            val fragment = AllTaskFragment()
+        fun newInstance(type: Type=Type.ALL): TaskFragment {
+            val fragment = TaskFragment()
             val bundle = Bundle()
             bundle.putInt("type", type.ordinal)
             fragment.arguments = bundle
@@ -33,7 +30,7 @@ class AllTaskFragment : Fragment() {
         }
     }
 
-    private lateinit var allTaskViewModel: AllTaskViewModel
+    private lateinit var tasksViewModel: TasksViewModel
 
     lateinit var binding: FragmentAllTaskBinding
     private var newTaskDialog: AddTaskDialog? = null
@@ -45,8 +42,8 @@ class AllTaskFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        allTaskViewModel =
-                ViewModelProvider(this).get(AllTaskViewModel::class.java)
+        tasksViewModel =
+                ViewModelProvider(this).get(TasksViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_all_task, container, false)
         binding = FragmentAllTaskBinding.bind(root)
 
@@ -67,9 +64,9 @@ class AllTaskFragment : Fragment() {
     private fun setupView() {
 
         val tasks = when(type) {
-            Type.ALL -> allTaskViewModel.getAllTasks()
-            Type.COMPLETE -> allTaskViewModel.getCompleteTasks()
-            Type.INCOMPLETE -> allTaskViewModel.getInCompleteTasks()
+            Type.ALL -> tasksViewModel.getAllTasks()
+            Type.COMPLETE -> tasksViewModel.getCompleteTasks()
+            Type.INCOMPLETE -> tasksViewModel.getInCompleteTasks()
         }
 
         todoTaskAdapter = TodoTaskAdapter()
@@ -80,7 +77,7 @@ class AllTaskFragment : Fragment() {
                 override fun onChange(isComplete: Boolean, position: Int) {
                     val item = todoTaskAdapter.data?.get(position) ?: return
                     item.isComplete = isComplete
-                    allTaskViewModel.updateTask(item)
+                    tasksViewModel.updateTask(item)
                 }
             }
 
@@ -100,7 +97,7 @@ class AllTaskFragment : Fragment() {
 
         newTaskDialog?.onAddNewTaskListener = object : AddTaskDialog.OnAddNewTaskListener {
             override fun onAddNewTask(desc: String) {
-                allTaskViewModel.addNewTask(desc)
+                tasksViewModel.addNewTask(desc)
             }
         }
 

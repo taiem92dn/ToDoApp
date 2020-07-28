@@ -6,24 +6,24 @@ import com.tngdev.todoapp.model.TodoTask
 import java.util.concurrent.Executors
 import javax.inject.Inject
 
-class TodoTaskRepository @Inject constructor(
+class DefaultTasksRepository @Inject constructor(
     private val todoTaskDao: TodoTaskDao
-) {
-    fun addNewTask(desc: String) {
+) : TasksRepository {
+    override fun addNewTask(desc: String) {
         Executors.newSingleThreadExecutor().execute {
             todoTaskDao.insert(TodoTask(description = desc))
         }
     }
 
-    fun getAll() : LiveData<List<TodoTask>> {
+    override fun getAll() : LiveData<List<TodoTask>> {
         return todoTaskDao.getAll()
     }
 
-    fun getTasks(isComplete: Boolean) : LiveData<List<TodoTask>> {
+    override fun getTasks(isComplete: Boolean) : LiveData<List<TodoTask>> {
         return todoTaskDao.getTasks(isComplete)
     }
 
-    fun updateTask(task: TodoTask) {
+    override fun updateTask(task: TodoTask) {
         Executors.newSingleThreadScheduledExecutor().execute {
             todoTaskDao.insert(task)
         }

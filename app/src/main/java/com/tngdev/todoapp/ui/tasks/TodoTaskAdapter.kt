@@ -1,4 +1,4 @@
-package com.tngdev.todoapp.ui.home
+package com.tngdev.todoapp.ui.tasks
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

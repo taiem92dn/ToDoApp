@@ -1,8 +1,7 @@
-package com.tngdev.todoapp.ui.home
+package com.tngdev.todoapp.ui.tasks
 
 import android.app.AlertDialog
 import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.text.TextUtils
 import androidx.fragment.app.DialogFragment
